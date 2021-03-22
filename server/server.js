@@ -21,7 +21,7 @@ const client = new Client ({
 
 client.connect()
 .then(() => console.log("connecté avec succès"))
-.then(() => client.query("select * from utilisateur"))
+.then(() => client.query("INSERT INTO utilisateur (id,nom,prenom)values(4,'Johnny','Burnout')"))
 .catch(e => console.log(e))
 .finally(() => client.end()) 
 
