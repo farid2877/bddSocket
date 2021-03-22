@@ -30,14 +30,15 @@ io.on('connection', clientSocket => {
 
     console.log('connection of : ', clientSocket.id);
 
-    clientSocket.on('sendName', function (userName) {
-        client.connect()
-        client.query("BEGIN")
-        client.query("INSERT INTO utilisateur (id,nom,prenom)values(7,"+userName+",'Branco')")
-        console.log("Insert" + userName)
-        client.query("COMMIT")
+    clientSocket.on('sendName', async function (userName) {
+        await client.connect()
+        await client.query("BEGIN")
+        await client.query("INSERT INTO utilisateur (id,nom,prenom)values(7,"+userName+",'Branco')")
+        console.log("Insert " + userName)
+        await client.query("COMMIT")
     });
 
 });
+
 
 io.listen(process.env.PORT || 3000);
