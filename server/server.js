@@ -21,6 +21,7 @@ const client = new Client ({
 
 client.connect()
 .then(() => console.log("connecté avec succès"))
+.then(() => client.query("select * from utilisateur"))
 .catch(e => console.log(e))
 .finally(() => client.end()) 
 
