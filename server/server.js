@@ -19,11 +19,11 @@ const client = new Client ({
 
 });
 
-client.connect()
-.then(() => console.log("connecté avec succès"))
-.then(() => client.query("INSERT INTO utilisateur (id,nom,prenom)values(4,'Johnny','Burnout')"))
-.catch(e => console.log(e))
-.finally(() => client.end()) 
+// client.connect()
+// .then(() => console.log("connecté avec succès"))
+// .then(() => client.query("INSERT INTO utilisateur (id,nom,prenom)values(4,'Johnny','Burnout')"))
+// .catch(e => console.log(e))
+// .finally(() => client.end()) 
 
 
 io.on('connection', clientSocket => {
@@ -31,7 +31,11 @@ io.on('connection', clientSocket => {
     console.log('connection of : ', clientSocket.id);
 
     clientSocket.on('sendName', function (userName) {
-        console.log(userName);
+        client.connect()
+        client.query("BEGIN")
+        client.query("INSERT INTO utilisateur (id,nom,prenom)values(7,"+userName+",'Branco')")
+        console.log("Insert" + userName)
+        client.query("COMMIT")
     });
 
 });
