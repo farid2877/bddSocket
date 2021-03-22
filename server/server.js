@@ -31,11 +31,21 @@ io.on('connection', clientSocket => {
     console.log('connection of : ', clientSocket.id);
 
     clientSocket.on('sendName', async function (userName) {
-        await client.connect()
-        await client.query("BEGIN")
-        await client.query("INSERT INTO utilisateur (id,nom,prenom)values(7,"+userName+",'Branco')")
-        console.log("Insert " + userName)
-        await client.query("COMMIT")
+        try {
+            await client.connect()
+            await client.query("BEGIN")
+            await client.query("INSERT INTO utilisateur (id,nom,prenom)values(7,"+userName+",'Branco')")
+            console.log("Insert " + userName)
+            await client.query("COMMIT")
+        }
+        catch (ex) {
+            console.log('Failed to execute ' + ex);
+        }
+        finally {
+            await client.end()
+            console.log("Cleaned")
+        }
+
     });
 
 });
