@@ -19,7 +19,9 @@ const client = new Client ({
 
 });
 
-// client.connect()
+client.connect()
+.then(() => console.log("connecté avec succès"))
+
 // .then(() => console.log("connecté avec succès"))
 // .then(() => client.query("INSERT INTO utilisateur (id,nom,prenom)values(4,'Johnny','Burnout')"))
 // .catch(e => console.log(e))
@@ -31,8 +33,11 @@ io.on('connection', clientSocket => {
     console.log('connection of : ', clientSocket.id);
 
     clientSocket.on('sendName', async function (userName) {
+        console.log('Function sendName');
+
         let text = "INSERT INTO utilisateur(id,nom,prenom) VALUES(7,$1,'Branco') RETURNING *"
         let values = [userName];
+        
         try {
             await client.query(text, values);
             console.log("Insert " + userName)
