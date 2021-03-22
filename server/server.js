@@ -34,7 +34,7 @@ io.on('connection', clientSocket => {
         try {
             await client.connect()
             await client.query("BEGIN")
-            await client.query("INSERT INTO utilisateur (id,nom,prenom)values(7,"+userName+",'Branco')")
+            await client.query("INSERT INTO utilisateur(id,nom,prenom) VALUES (7,"+userName+",'Branco')")
             console.log("Insert " + userName)
             await client.query("COMMIT")
         }
