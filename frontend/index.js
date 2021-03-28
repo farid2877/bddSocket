@@ -10,6 +10,12 @@ let buttonValider = document.getElementById('validateButton');
 buttonValider.addEventListener('click', function () {
 
     let name = document.getElementById('inputName');
-    socket.emit('sendName', name.value);
+    let familyName = document.getElementById('inputFamilyName');
+    if (name.value === "" || familyName.value === "" ) {
+        alert("Empty case")
+    } else {
+        socket.emit('sendName', name.value, familyName.value);
+    }
+    
     
 });

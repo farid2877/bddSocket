@@ -7,11 +7,15 @@ const io = require("socket.io")({
 const {Client} = require ('pg');
 const client = new Client ({
 
-    // user : "gpvzhfuiqdshew",
-    // password: "1ab7f0f34559cb8904ecf272623ecca557dff235749e699a5e90f1cf24407843",
-    // host: "ec2-54-155-35-88.eu-west-1.compute.amazonaws.com",
+    // Comment for deploy
+    // user : "postgres",
+    // password: "Manigance77",
+    // host: "127.0.0.1",
     // port: 5432,
-    // database: "d3pvam5rhqeiss"
+    // database: "postgres"
+
+
+    // Uncomment for deploy
     connectionString: process.env.DATABASE_URL,
     ssl: {
       rejectUnauthorized: false
@@ -32,23 +36,23 @@ io.on('connection', clientSocket => {
 
     console.log('connection of : ', clientSocket.id);
 
-    clientSocket.on('sendName', async function (userName) {
+    clientSocket.on('sendName', async function (name, familyName) {
         console.log('Function sendName');
 
-        let text = "INSERT INTO utilisateur(id,nom,prenom) VALUES(7,$1,'Branco') RETURNING *"
-        let values = [userName];
-        
+        let text = "INSERT INTO utilisateur(nom,prenom) VALUES($1,$2) RETURNING *"
+        let values = [name, familyName];
+
         try {
             await client.query(text, values);
-            console.log("Insert " + userName)
+            console.log("Insert " + name + " " + familyName)
         }
         catch (ex) {
             console.log('Failed to execute :' + ex);
         }
-        finally {
-            await client.end()
-            console.log("Cleaned")
-        }
+        // finally {
+        //     await client.end();
+        //     console.log("Cleaned");
+        // }
 
     });
 
