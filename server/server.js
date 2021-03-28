@@ -8,11 +8,20 @@ const {Client} = require ('pg');
 const client = new Client ({
 
     // Comment for deploy
+    // For MUS
     // user : "postgres",
     // password: "Manigance77",
     // host: "127.0.0.1",
     // port: 5432,
     // database: "postgres"
+
+    // Comment for deploy
+    // For FRD
+    // user : "postgres",
+    // password: "Marifa77",
+    // host: "127.0.0.1",
+    // port: 5432,
+    // database: "Test"
 
 
     // Uncomment for deploy
